@@ -20,3 +20,13 @@ groups:
     annotations:
       summary: "Instance {{ $labels.instance }} under high load"
       description: "{{ $labels.instance }} of job {{ $labels.job }} is under high load."
+
+  - alert: APIHighMedianResponseTime
+    expr: histogram_quantile(0.5, sum by(le, service, route, method) (rate(http_request_duration_ms_bucket[1m])))
+      > 30
+    for: 1m
+    annotations:
+      description: '{{ $labels.service }}, {{ $labels.method }} {{ $labels.route }}
+        has a median response time above 100ms (current value: {{ $value }}ms)'
+      summary: High median response time on {{ $labels.service }} and {{ $labels.method
+        }} {{ $labels.route }}
