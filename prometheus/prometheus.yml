@@ -65,7 +65,7 @@ scrape_configs:
   - job_name: 'efserver'
     scrape_interval: 20s
     static_configs:
-    - targets: ['34.125.181.17:3005']
+    - targets: ['XX.XXX.XXX.XX:3005']
       labels:
         service: 'efserver'
         group: 'production'
